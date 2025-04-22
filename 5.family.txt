@@ -1,0 +1,14 @@
+% Facts: parent relationship
+parent(john, mary). % John is the parent of Mary
+parent(mary, alice). % Mary is the parent of Alice
+parent(mary, bob). % Mary is the parent of Bob
+
+% Rule for grandparent
+grandparent(X, Y) :- parent(X, Z), parent(Z, Y).
+
+% Rule for siblings
+sibling(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.
+
+% Queries:
+% Who is a grandparent of Alice?  	grandparent(X, alice).
+% Who are Alice's siblings?  		sibling(alice, Y).
