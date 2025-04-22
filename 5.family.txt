@@ -12,3 +12,42 @@ sibling(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.
 % Queries:
 % Who is a grandparent of Alice?  	grandparent(X, alice).
 % Who are Alice's siblings?  		sibling(alice, Y).
+
+
+% Your program goes here
+% Facts
+% Parent-child relationships
+parent(john, alice).
+parent(john, bob).
+parent(mary, alice).
+parent(mary, bob).
+parent(alice, lily).
+parent(alice, james).
+parent(bob, sarah).
+parent(tom, lily).
+parent(tom, james).
+parent(carol, sarah).
+% Sibling relationships (defined based on parent-child)
+sibling(X, Y) :-
+ parent(P, X),
+ parent(P, Y),
+ X \= Y. % Ensures X is not the same as Y
+% Grandparent relationships
+grandparent(X, Y) :-
+ parent(X, Z),
+ parent(Z, Y).
+% Aunts and Uncles (siblings of your parents)
+aunt_or_uncle(X, Y) :-
+ sibling(X, Z),
+ parent(Z, Y).
+% Cousins (children of your aunts/uncles)
+cousin(X, Y) :-
+ aunt_or_uncle(A, X),
+ parent(A, Y).
+% Example Queries:
+% Who are Alice's siblings?
+ %?- sibling(alice, Sibling).
+% Is John a grandparent of Lily?
+ %?- grandparent(john, lily).
+% Who are the cousins of Lily?
+%?- cousin(lily, Cousin). 
